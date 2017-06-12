@@ -87,7 +87,7 @@ const SIGMA_B = deg2rad(2)  # [rad]
 const SIGMA_P = deg2rad(2)  # [rad]
 const SIGMA_XY = 25         # [m]
 
-const LARGE_NUMBER = int64(1e9)
+const LARGE_NUMBER = Int64(1e9)
 
 
 function read_alpha(infile::ASCIIString=ALPHA_FILE)

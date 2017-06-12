@@ -6,7 +6,7 @@ using DoubleUAVs, QMDP, POMDPs, GridInterpolations, Interact,
 export get_pomdp, gen_pairwise_policy, viz_pairwise_policy
 
 
-const ALPHA_FILE = "../../data/alpha.jld"
+const ALPHA_FILE = "data/alpha.jld"
 const ALPHA_VARIABLE = "alpha"
 
 const DIM_POMDP_STATES = 5
@@ -46,10 +46,10 @@ function gen_pairwise_policy(
         saveAlpha::Bool=true)
     alpha = qmdp(d, lambda)
     if saveAlpha
-        @printf("Writing alpha vector to %s...", ALPHA_FILE)
+        @printf("Writing alpha vector to %s...\n", ALPHA_FILE)
         tic()
-        filename = string("../../data/alpha", filetag, ".jld")
-        save(filename, ALPHA_VARIABLE, alpha)
+        filename = string("data/alpha", filetag, ".jld")
+        JLD.save(ALPHA_FILE, ALPHA_VARIABLE, alpha)
         @printf("done in %.2e.\n\n", toq())
     end # if
     return Policy(alpha, d.pomdp.actions)
@@ -176,8 +176,8 @@ function viz_pairwise_policy(d::DoubleUAV, alphafile::ASCIIString=ALPHA_FILE, nb
         
         g = GroupPlot(2, 1, groupStyle = "horizontal sep=3cm")
         push!(g, Axis([
-            Plots.Image(get_heat1, (int(XMIN), int(XMAX)), 
-                        (int(YMIN), int(YMAX)), 
+            Plots.Image(get_heat1, (Int(XMIN), Int(XMAX)), 
+                        (Int(YMIN), Int(YMAX)), 
                         zmin = -20, zmax = 20,
                         xbins = nbin, ybins = nbin,
                         colormap = ColorMaps.Named("RdBu"), colorbar = false),
@@ -185,8 +185,8 @@ function viz_pairwise_policy(d::DoubleUAV, alphafile::ASCIIString=ALPHA_FILE, nb
             Plots.Node(L">", 1800, 1800, style=string("rotate=", p, ",font=\\Huge"))
             ], width="10cm", height="10cm", xlabel="x (m)", ylabel="y (m)", title="Ownship action"))
         push!(g, Axis([
-            Plots.Image(get_heat2, (int(XMIN), int(XMAX)), 
-                        (int(YMIN), int(YMAX)), 
+            Plots.Image(get_heat2, (Int(XMIN), Int(XMAX)), 
+                        (Int(YMIN), Int(YMAX)), 
                         zmin = -20, zmax = 20,
                         xbins = nbin, ybins = nbin,
                         colormap = ColorMaps.Named("RdBu")),
@@ -246,8 +246,8 @@ function viz_pairwise_policy(d::DoubleUAV, alpha::Matrix{Float64}, nbin::Int64=2
         
         g = GroupPlot(2, 1, groupStyle = "horizontal sep=3cm")
         push!(g, Axis([
-            Plots.Image(get_heat1, (int(XMIN), int(XMAX)), 
-                        (int(YMIN), int(YMAX)), 
+            Plots.Image(get_heat1, (Int(XMIN), Int(XMAX)), 
+                        (Int(YMIN), Int(YMAX)), 
                         zmin = -20, zmax = 20,
                         xbins = nbin, ybins = nbin,
                         colormap = ColorMaps.Named("RdBu"), colorbar = false),
@@ -255,8 +255,8 @@ function viz_pairwise_policy(d::DoubleUAV, alpha::Matrix{Float64}, nbin::Int64=2
             Plots.Node(L">", 1800, 1800, style=string("rotate=", p, ",font=\\Huge"))
             ], width="10cm", height="10cm", xlabel="x (m)", ylabel="y (m)", title="Ownship action"))
         push!(g, Axis([
-            Plots.Image(get_heat2, (int(XMIN), int(XMAX)), 
-                        (int(YMIN), int(YMAX)), 
+            Plots.Image(get_heat2, (Int(XMIN), Int(XMAX)), 
+                        (Int(YMIN), Int(YMAX)), 
                         zmin = -20, zmax = 20,
                         xbins = nbin, ybins = nbin,
                         colormap = ColorMaps.Named("RdBu")),

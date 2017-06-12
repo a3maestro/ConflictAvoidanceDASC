@@ -15,6 +15,8 @@ export NSTATES, COC, DoubleUAV, get_next_state, gen_reward
 
 
 const DT = 5.0              # [s]
+const DT = 60.0              # [s]
+const DT = 1.0              # [s]
 const DTI = 1.0             # [s]
 const G = 9.8               # [m/s^2]
 
@@ -36,21 +38,21 @@ const P = 3                 # [rad] relative heading
 const V1 = 4                # [m/s] ac1 speed
 const V2 = 5                # [m/s] ac2 speed
 
-const XDIM = 11
+const XDIM = 20
 const XMIN = -2e3
 const XMAX = 2e3
 
-const YDIM = 11
+const YDIM = 20
 const YMIN = -2e3
 const YMAX = 2e3
 
-const PDIM = 5
+const PDIM = 16
 const PMIN = 0.0
 const PMAX = 2 * pi
 
-const VDIM = 3
-const VMIN = 10
-const VMAX = 20
+const VDIM = 10
+const VMIN = 40
+const VMAX = 60
 
 xs = linspace(XMIN, XMAX, XDIM)
 ys = linspace(YMIN, YMAX, YDIM)
@@ -103,7 +105,7 @@ const SIGMAS = [0 SIGMA_B -SIGMA_B 0 0 0 0 0 0;
                 0 0 0 SIGMA_B -SIGMA_B 0 0 0 0;
                 0 0 0 0 0 SIGMA_V -SIGMA_V 0 0;
                 0 0 0 0 0 0 0 SIGMA_V -SIGMA_V]
-const WEIGHTS = [1 / 3, 2 / (3 * (size(SIGMAS, 2) - 1)) * 
+const WEIGHTS = [1 / 3; 2 / (3 * (size(SIGMAS, 2) - 1)) * 
                              ones(size(SIGMAS, 2) - 1)]
 const SIGMA_DEF = zeros(size(SIGMAS, 1))
 
