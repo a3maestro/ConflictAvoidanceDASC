@@ -14,13 +14,13 @@ using POMDPs
 export NSTATES, COC, DoubleUAV, get_next_state, gen_reward
 
 
-const DT = 5.0              # [s]
-const DT = 60.0              # [s]
+#const DT = 5.0              # [s]
+#const DT = 60.0              # [s]
 const DT = 1.0              # [s]
 const DTI = 1.0             # [s]
 const G = 9.8               # [m/s^2]
 
-const MIN_SEP_SQ = 500.0^2  # [m]
+const MIN_SEP_SQ = 750.0^2  # [m]
 const RBF_STD_DIST = 500.0  # [m]
 const RBF_INV_VAR = 1 / RBF_STD_DIST^2   # [1/m^2]
 
@@ -38,19 +38,19 @@ const P = 3                 # [rad] relative heading
 const V1 = 4                # [m/s] ac1 speed
 const V2 = 5                # [m/s] ac2 speed
 
-const XDIM = 20
+const XDIM = 24
 const XMIN = -2e3
 const XMAX = 2e3
 
-const YDIM = 20
+const YDIM = 24
 const YMIN = -2e3
 const YMAX = 2e3
 
-const PDIM = 16
+const PDIM = 10
 const PMIN = 0.0
 const PMAX = 2 * pi
 
-const VDIM = 10
+const VDIM = 6
 const VMIN = 40
 const VMAX = 60
 
@@ -250,7 +250,7 @@ function gen_reward(pen_conflict::Float64=PEN_CONFLICT)
             
             minSepSq = Inf
             for ti = 1:DT / DTI
-                minSepSq = min(minSepSq, norm(state)^2)
+                minSepSq = min(minSepSq, norm(state[1:2])^2)
                 state = get_next_state(state, iaction)
             end # for ti
 

@@ -149,9 +149,7 @@ function viz_pairwise_policy(d::DoubleUAV, alphafile::ASCIIString=ALPHA_FILE, nb
 
     policy = read_policy(actions, alphafile)
 
-    @manipulate for p = pstart:pdiv:pend, 
-                    v0 = vstart:vdiv:vend, 
-                    v1 = vstart:vdiv:vend
+    @manipulate for p = pstart:pdiv:pend, v0 = vstart:vdiv:vend, v1 = vstart:vdiv:vend
         # ownship uav
         function get_heat1(x::Float64, y::Float64)
             action, _ = evaluate(policy, get_belief(
